@@ -6,6 +6,9 @@
 
 > Une application de liste de tâches complète, accessible et ultra-légère — entièrement en Vanilla JS, sans framework.
 
+
+🔗 **[Voir la démo](https://niux3.github.io/todo-vanilla/)**
+
 ---
 
 ## Poids
