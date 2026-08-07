@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo application</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css" crossorigin="anonymous" />
+    </head>
+    <body>
+        <main class="grid-container">
+            <todo-component />
+        </main>
+        <script type="text/template" id="tpl-todo-form">
+            <header>
+                <form id="todo-form">
+                    <div class="grid-x grid-margin-x align-middle">
+                        <div class="cell auto">
+                            <input type="text" name="newTask" placeholder="Nouvelle tâche…" />
+                        </div>
+                        <div class="cell shrink">
+                            <button type="submit" disabled class="button expanded">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+            </header>
+        </script>
+        <script type="text/template" id="tpl-todo-list">
+            <section id="todo-list">
+                [[if(todos.length > 0){]]
+                <ul>
+                    [[todos.forEach(function(todo){]]
+                    <li>
+                        <input type="checkbox" />
+                        <label>{{ todo.title }}</label>
+                        <p>{{ todo.description }}</p>
+                    </li>
+                    [[})]]
+                </ul>
+                [[}else{]]
+                <p>Aucune tâche</p>
+                [[}]]
+            </section>
+        </script>
+        <script type="text/template" id="tpl-todo-nav">
+            <footer>
+                <nav role="navigation"></nav>
+            </footer>
+        </script>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>
+
