@@ -1,37 +1,47 @@
 import templateHTML from '../templates/todo-footer.html?raw'
 import { TemplateEngine } from '@niuxe/template-engine'
 
-
 export class TodoFooter extends HTMLElement {
-
-    static get observedAttributes() {
-        return ['data']
-    }
-
     constructor() {
         super()
         this.engine = new TemplateEngine()
-        this._todos = []
+        this._filtered_data_len = 0
+        this._url = ''
+        this._data_len = 0
+        this._updateScheduled = false
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'data' && newValue) {
-            try {
-                this._todos = JSON.parse(newValue)
-                // console.log('Loaded todos', this._todos)
+    set filtered_data_len(value) {
+        this._filtered_data_len = value
+        this.scheduleRender()
+    }
+
+    set data_len(value) {
+        this._data_len = value
+        this.scheduleRender()
+    }
+
+    set url(value) {
+        this._url = value
+        this.scheduleRender()
+    }
+
+    scheduleRender() {
+        if (!this._updateScheduled) {
+            this._updateScheduled = true
+            requestAnimationFrame(() => {
+                this._updateScheduled = false
                 this.render()
-            } catch (e) {
-                console.error('Invalid JSON in data attribute', e)
-            }
+            })
         }
     }
 
-    connectedCallback() {
-        this.render()
-    }
-
     render() {
-        let html = this.engine.render(templateHTML, { todos: this._todos })
-        this.innerHTML = html
+        const ctx = {
+            data_len: this._data_len,
+            filtered_data_len: this._filtered_data_len,
+            url: this._url
+        }
+        this.innerHTML = this.engine.render(templateHTML, ctx)
     }
 }

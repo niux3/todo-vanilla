@@ -1,9 +1,27 @@
+[[if(data_len > 0){]]
 <footer>
-    <span>[[= todos.length ]] tâche[[= todos.length > 1 ? 's' : '']]</span>
+    <span>[[= filtered_data_len ]] tâche[[= filtered_data_len > 1 ? 's' : '']]</span>
     <nav role="navigation">
+        [[if(url === '#/all'){]]
+        <a href="#/all" class="button warning">toutes</a>
+        [[}else{]]
         <a href="#/all" class="button">toutes</a>
+        [[}]]
+        [[if(url === '#/pending'){]]
+        <a href="#/pending" class="button warning">en cours</a>
+        [[}else{]]
         <a href="#/pending" class="button">en cours</a>
+        [[}]]
+        [[if(url === '#/completed'){]]
+        <a href="#/completed" class="button warning">terminées</a>
+        [[}else{]]
         <a href="#/completed" class="button">terminées</a>
+        [[}]]
+        [[if(url === '#/clear'){]]
+        <a href="#/clear" class="button warning">effacer</a>
+        [[}else{]]
         <a href="#/clear" class="button">effacer</a>
+        [[}]]
     </nav>
 </footer>
+[[}]]

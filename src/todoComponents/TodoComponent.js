@@ -10,6 +10,7 @@ export class TodoComponent extends HTMLElement {
         customElements.define('todo-list', TodoList)
         customElements.define('todo-footer', TodoFooter)
         this.todoManager = new TodoManager()
+        this.url = ''
     }
 
     connectedCallback() {
@@ -75,9 +76,9 @@ export class TodoComponent extends HTMLElement {
     }
 
     updateListWithCurrentFilter() {
-        const url = window.location.hash || '#/all'
+        this.url = window.location.hash || '#/all'
         let todos
-        switch (url) {
+        switch (this.url) {
             case '#/all':
                 todos = this.todoManager.getAll()
                 break
@@ -100,6 +101,9 @@ export class TodoComponent extends HTMLElement {
 
     updateList(todos) {
         this.todoList.setAttribute('data', JSON.stringify(todos))
-        this.todoFooter.setAttribute('data', JSON.stringify(todos))
+
+        this.todoFooter.filtered_data_len = todos.length
+        this.todoFooter.data_len = this.todoManager.getAll().length
+        this.todoFooter.url = this.url
     }
 }
