@@ -100,7 +100,7 @@ export class TodoComponent extends HTMLElement {
     }
 
     updateList(todos) {
-        this.todoList.setAttribute('data', JSON.stringify(todos))
+        this.todoList.data = todos
 
         this.todoFooter.filtered_data_len = todos.length
         this.todoFooter.data_len = this.todoManager.getAll().length
