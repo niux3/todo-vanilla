@@ -37,41 +37,14 @@ export class TodoComponent extends HTMLElement {
     }
 
     handleRoute() {
-        this._onLoad = () => this.handleHashChange()
-        this._onHashChange = () => this.handleHashChange()
+        this._onLoad = () => this.updateListWithCurrentFilter()
+        this._onHashChange = () => this.updateListWithCurrentFilter()
 
         window.addEventListener('load', this._onLoad)
         window.addEventListener('hashchange', this._onHashChange)
 
         // Appel initial
-        this.handleHashChange()
-    }
-
-    handleHashChange() {
-        const url = window.location.hash || '#/all'
-        console.log('url handleHashChange >', url)
-
-        let todos
-        switch (url) {
-            case '#/all':
-                todos = this.todoManager.getAll()
-                break
-            case '#/pending':
-                todos = this.todoManager.getPending()
-                break
-            case '#/completed':
-                todos = this.todoManager.getCompleted()
-                break
-            case '#/clear':
-                this.todoManager.clear()
-                this.todoManager.save()
-                todos = this.todoManager.getAll()
-                break
-            default:
-                todos = this.todoManager.getAll()
-        }
-
-        this.updateList(todos)
+        this.updateListWithCurrentFilter()
     }
 
 
@@ -113,6 +86,11 @@ export class TodoComponent extends HTMLElement {
                 break
             case '#/completed':
                 todos = this.todoManager.getCompleted()
+                break
+            case '#/clear':
+                this.todoManager.clear()
+                this.todoManager.save()
+                todos = this.todoManager.getAll()
                 break
             default:
                 todos = this.todoManager.getAll()
