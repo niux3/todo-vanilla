@@ -34,6 +34,7 @@ export class TodoFooter extends HTMLElement {
                 this._updateScheduled = false
                 this.render()
             })
+            console.log('render scheduled')
         }
     }
 
